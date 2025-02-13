@@ -51,10 +51,20 @@ const TeleportButton = styled(Button)`
   z-index: 9999;
 `;
 
+// Styled love message
+const LoveMessage = styled.div`
+  font-size: 36px;
+  color: #ff6b6b;
+  font-weight: bold;
+  margin-top: 20px;
+`;
+
 const Dateform = () => {
   const [response, setResponse] = useState('');
   const [isSubmitted, setIsSubmitted] = useState(false);
   const [confettiVisible, setConfettiVisible] = useState(false);
+  const [showLoveMessage, setShowLoveMessage] = useState(false); // New state for the love message
+  const [showFinalGif, setShowFinalGif] = useState(false); // New state for final GIF
   const teleportButtonRef = useRef(null);
 
   const handleResponse = (answer) => {
@@ -63,9 +73,15 @@ const Dateform = () => {
 
     if (answer === 'Yes') {
       setConfettiVisible(true);
-      alert(`💌 You chose: ${answer} 💌`);
+      setShowLoveMessage(true); // Show the love message
+      setTimeout(() => {
+        setShowFinalGif(true); // Show the final gif after a delay
+      }, 1000);
+      
     } else {
       setConfettiVisible(false);
+      setShowLoveMessage(false); // Hide the love message
+      setShowFinalGif(false); // Hide the final gif
       alert(`💔 You chose: ${answer} 💔`);
     }
   };
@@ -108,21 +124,40 @@ const Dateform = () => {
     <FormContainer>
       {confettiVisible && <Confetti />}
       
-      {/* Cute Valentine GIF */}
-      <GifImage src="https://media1.giphy.com/media/v1.Y2lkPTc5MGI3NjExdjZnc3dzbm9jdHZoaXYxcTA4eWM2ZTBiaXZqNDJ3bHNlZWZyYTEwNCZlcD12MV9pbnRlcm5hbF9naWZfYnlfaWQmY3Q9Zw/sNPeJFq6YNEvLZdcqX/giphy.gif" alt="Cute Valentine GIF" />
+      {/* Show final GIF after Yes response */}
+      {showFinalGif && (
+        <GifImage 
+          src="https://media4.giphy.com/media/v1.Y2lkPTc5MGI3NjExaTl6NDcwdjR4c2pidTZjMWlmeGtjNHhvNHJxOW43bnpyZDlhb2NuZSZlcD12MV9pbnRlcm5hbF9naWZfYnlfaWQmY3Q9Zw/wKu8FT3lTayN2MbU07/giphy.gif" 
+          alt="I love you gif" 
+        />
+      )}
       
-      <h3>Will you be my Valentine?</h3>
+      {/* Display Love Message after "Yes" */}
+      {showLoveMessage && <LoveMessage>💌 I love you too 💌</LoveMessage>}
 
-      <div>
-        <Button onClick={() => handleResponse('Yes')}>Yes</Button>
-        <TeleportButton
-          ref={teleportButtonRef}
-          onMouseEnter={teleportButton} // Trigger teleport on hover
-          onClick={() => handleResponse('No')}
-        >
-          No
-        </TeleportButton>
-      </div>
+      {/* Show initial content (GIF, message, buttons) if the user hasn't clicked Yes */}
+      {!showLoveMessage && !showFinalGif && (
+        <>
+          {/* Cute Valentine GIF */}
+          <GifImage 
+            src="https://media1.giphy.com/media/v1.Y2lkPTc5MGI3NjExdjZnc3dzbm9jdHZoaXYxcTA4eWM2ZTBiaXZqNDJ3bHNlZWZyYTEwNCZlcD12MV9pbnRlcm5hbF9naWZfYnlfaWQmY3Q9Zw/sNPeJFq6YNEvLZdcqX/giphy.gif" 
+            alt="Cute Valentine GIF" 
+          />
+          
+          <h3>Will you be my Valentine?</h3>
+
+          <div>
+            <Button onClick={() => handleResponse('Yes')}>Yes</Button>
+            <TeleportButton
+              ref={teleportButtonRef}
+              onMouseEnter={teleportButton} // Trigger teleport on hover
+              onClick={() => handleResponse('No')}
+            >
+              No
+            </TeleportButton>
+          </div>
+        </>
+      )}
     </FormContainer>
   );
 };
