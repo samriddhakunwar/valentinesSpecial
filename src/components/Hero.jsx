@@ -1,6 +1,7 @@
 import { motion } from 'framer-motion';
 import styled from 'styled-components';
 import Dateform from './Dateform';
+import React from 'react';
 
 const HeroContainer = styled.div`
   background-image: url('https://media4.giphy.com/media/v1.Y2lkPTc5MGI3NjExdnBpcmFteXJwemtrZDl1d2F1Zzd3ZjkybXg2aTZzYXdweDkzNWhtayZlcD12MV9pbnRlcm5hbF9naWZfYnlfaWQmY3Q9Zw/xTcnT2ZYSaCTdkTSmI/giphy.gif');

@@ -1,6 +1,7 @@
 import { useState, useEffect, useRef } from 'react';
 import styled from 'styled-components';
 import Confetti from 'react-confetti';
+import React from 'react';
 
 // Styled container for the form
 const FormContainer = styled.div`
