@@ -83,7 +83,7 @@ const Dateform = () => {
       setConfettiVisible(false);
       setShowLoveMessage(false); // Hide the love message
       setShowFinalGif(false); // Hide the final gif
-      alert(`💔 You chose: ${answer} 💔`);
+      
     }
   };
 
